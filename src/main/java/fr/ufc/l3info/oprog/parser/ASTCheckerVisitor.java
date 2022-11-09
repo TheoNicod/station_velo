@@ -11,7 +11,7 @@ public class ASTCheckerVisitor {
     public ASTCheckerVisitor() {
 
     }
-
+/*
     //code du visiteur pour ListStation (c'est le plus facile) (même structure pour tous les visit (en gros))
     public Object visit(ASTListeStations n) {
         if(n.getNumChild() == 0) {
@@ -23,6 +23,6 @@ public class ASTCheckerVisitor {
         }
         return null;
     }
-
+*/
 
 }
