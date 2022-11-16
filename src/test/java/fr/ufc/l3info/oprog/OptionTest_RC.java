@@ -264,7 +264,6 @@ public class OptionTest_RC {
     @Test
     public void TestDecrocherSuccess(){
         OptCadreAlu cadreAlu = new OptCadreAlu(velo);
-        Assert.assertEquals(0, cadreAlu.decrocher());
         cadreAlu.arrimer();
 
         OptFreinsDisque freinsDisque = new OptFreinsDisque(velo);
