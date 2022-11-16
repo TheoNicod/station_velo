@@ -15,9 +15,9 @@ public class JRegistre implements IRegistre {
     private Map<IVelo, Abonne> empruntsEnCours;
 
     public JRegistre() {
-        empruntsParAbonne = new HashMap<Abonne, Set<Emprunt>>();
-        empruntsParVelo = new HashMap<IVelo, Set<Emprunt>>();
-        empruntsEnCours = new HashMap<IVelo, Abonne>();
+        empruntsParAbonne = new HashMap<>();
+        empruntsParVelo = new HashMap<>();
+        empruntsEnCours = new HashMap<>();
     }
 
     @Override
@@ -57,9 +57,20 @@ public class JRegistre implements IRegistre {
             return -2;
         }
 
+        Emprunt emEnCours = null;
+        for (Emprunt em : empruntsParVelo.get(v)) {
+            if (em.estEnCours()) {
+                emEnCours = em;
+                break;
+            }
+        }
+
         if (empruntsParVelo.containsKey(v)) {
             for (Emprunt em : empruntsParVelo.get(v)) {
                 if (! em.estEnCours() && em.contientDate(d)) {
+                    return -3;
+                }
+                if(! em.estEnCours() && emEnCours.debut < em.debut && d > em.fin) {
                     return -3;
                 }
             }
@@ -104,7 +115,7 @@ public class JRegistre implements IRegistre {
         return facture;
     }
 
-    
+
     private class Emprunt {
 
         private IVelo velo;
@@ -141,6 +152,10 @@ public class JRegistre implements IRegistre {
             return d >= debut && (enCours || d <= fin);
         }
 
+        public boolean includes(long d1, long d2) {
+            return debut >= d1 && fin <= d2;
+        }
+
         public boolean finitEntre(long d, long f) {
             return fin >= d && fin <= f;
         }
@@ -155,5 +170,3 @@ public class JRegistre implements IRegistre {
     }
 
 }
-
-

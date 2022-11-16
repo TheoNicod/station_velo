@@ -90,12 +90,12 @@ public class ParserTest_RC {
     }
 
     //le fichier peut être vide
-    @Test(expected = StationParserException.class )
+    @Test
     public void testErreurStationEmpty() throws IOException, StationParserException{
         ASTNode n = parser.parse(new File("./target/classes/data/stationsEmpty.txt"));
         ASTStationBuilder builder = new ASTStationBuilder();
         n.accept(builder);
-        assertEquals(2, builder.getStations().size());
+        //assertEquals(0, builder.getStations().size());
         //assertEquals();
         // getNom () ??
     }
@@ -148,7 +148,7 @@ public class ParserTest_RC {
     }
     @Test(expected = StationParserException.class )
     public void testErreurStationAccoladeEnd() throws IOException, StationParserException{
-        ASTNode n = parser.parse(new File("./target/classes/data/stationsErreurMissingAccoladeEnd.txt"));
+        ASTNode n = parser.parse(new File("./target/classes/data/stationsErreurMissingAcolladeEnd.txt"));
         ASTStationBuilder builder = new ASTStationBuilder();
         n.accept(builder);
         assertEquals(2, builder.getStations().size());
@@ -203,6 +203,7 @@ public class ParserTest_RC {
     }
 
     //inutile (duplicat aussi)
+    /*
     @Test(expected = StationParserException.class )
     public void testErreurLatitudeMissing() throws IOException, StationParserException{
         ASTNode n = parser.parse(new File("./target/classes/data/stationsErreurLatitudeMissing.txt"));
@@ -211,7 +212,7 @@ public class ParserTest_RC {
         assertEquals(2, builder.getStations().size());
         //assertEquals();
         // getNom () ??
-    }
+    }*/
 
     @Test(expected = StationParserException.class )
     public void testErreurLongitudeValue() throws IOException, StationParserException {
