@@ -112,8 +112,8 @@ public class JRegistreTest_RC {
     public void TestRetournerDateChevauchement(){
         Assert.assertEquals(0, reg.emprunter(abonne,velo,date));
         Assert.assertEquals(0, reg.retourner(velo, date+1000));
-        Assert.assertEquals(0, reg.emprunter(abonne,velo,date+500));
-        Assert.assertEquals(-3, reg.retourner(velo, date+1500));
+        Assert.assertEquals(-2, reg.emprunter(abonne,velo,date+500));
+        Assert.assertEquals(-2, reg.retourner(velo, date+1500));
     }
     @Test
     public void TestRetournerMultpile(){
