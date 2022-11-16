@@ -1,6 +1,6 @@
 package fr.ufc.l3info.oprog;
 
-import org.jetbrains.annotations.TestOnly;
+//import org.jetbrains.annotations.TestOnly;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.theories.suppliers.TestedOn;

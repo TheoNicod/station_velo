@@ -144,7 +144,7 @@ class StationFileTokenizer {
      */
     public static List<Token> tokenize(File f) throws IOException, StationParserException {
         FileReader fr = new FileReader(f);
-        List<Token> r = new ArrayList<>();
+        List<Token> r = new ArrayList();
         int lu, nc = 0, nl = 1;
         Token token = new Token();
         boolean inQuotes = false;
