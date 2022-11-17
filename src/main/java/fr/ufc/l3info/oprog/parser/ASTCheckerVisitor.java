@@ -24,7 +24,7 @@ public class ASTCheckerVisitor implements ASTNodeVisitor {
 
     @Override
     public Object visit(ASTNode n) {
-        return null;
+        return n;
     }
 
     @Override
@@ -32,19 +32,23 @@ public class ASTCheckerVisitor implements ASTNodeVisitor {
         if(n.getNumChildren() == 0){
             errors.put(n.getLCPrefix()+" Liste de station vide", ERROR_KIND.EMPTY_LIST);
             System.out.println(n.getLCPrefix()+" Liste de station vide");
-
         }else{
             List<String> listStation = new ArrayList<String>();
+            int i = 0;
             for(ASTNode child : n){
                 child.accept(this);
-                if(child.children.get(0).value.equals("\"\"")){
-                    errors.put("message 1", ERROR_KIND.EMPTY_STATION_NAME);
+                String nomStation  = child.children.get(0).value.replaceAll("\\s", "");
+                if(nomStation.equals("\"\"")){
+                    errors.put(n.getLCPrefix()+" Nom de station vide "+i, ERROR_KIND.EMPTY_STATION_NAME);
+                    System.out.println(n.getLCPrefix()+" Nom de station vide");
                 }else if(listStation.contains(child.children.get(0).value)){
-                    errors.put("message 2", ERROR_KIND.DUPLICATE_STATION_NAME);
+                    errors.put(n.getLCPrefix()+" Nom de station en double "+nomStation, ERROR_KIND.DUPLICATE_STATION_NAME);
+                    System.out.println(n.getLCPrefix()+" Nom de station en double");
                     return null;
                 }else{
                     listStation.add(child.children.get(0).value);
                 }
+                i++;
             }
         }
         return null;
@@ -58,41 +62,48 @@ public class ASTCheckerVisitor implements ASTNodeVisitor {
                 Object [] declaration = (Object[]) child.accept(this);
                 if(!declarationList.containsKey(declaration[0])){
                     if(declaration[0].equals("capacite") && (Double) declaration[1]< 0){
-                        errors.put("message 3", ERROR_KIND.WRONG_NUMBER_VALUE);
+                        errors.put(n.getLCPrefix()+" Mauvaise valeur nombre", ERROR_KIND.WRONG_NUMBER_VALUE);
+                        System.out.println(n.getLCPrefix()+" Mauvaise valeur nombre");
                     }
                     declarationList.put((String)declaration[0], (Double) declaration[1]);
                 }else{
-                    errors.put("messsage 4", ERROR_KIND.DUPLICATE_DECLARATION);
+                    errors.put(n.getLCPrefix()+" Declaration duplique", ERROR_KIND.DUPLICATE_DECLARATION);
+                    System.out.println(n.getLCPrefix()+" Declaration duplique");
                 }
             }
-            if(!declarationList.containsKey("latitude") || !declarationList.containsKey("longitude") || !declarationList.containsKey("capacite") ){
-                errors.put("message 4", ERROR_KIND.MISSING_DECLARATION);
-            }
+        }
+        if(!declarationList.containsKey("latitude") ){
+            errors.put(n.getLCPrefix()+" Declaration latitude manquante", ERROR_KIND.MISSING_DECLARATION);
+            System.out.println(n.getLCPrefix()+" Declaration latitude manquante");
+        }
+        if(!declarationList.containsKey("longitude") ){
+            errors.put(n.getLCPrefix()+" Declaration longitude manquante", ERROR_KIND.MISSING_DECLARATION);
+            System.out.println(n.getLCPrefix()+" Declaration longitude manquante");
+        }
+        if(!declarationList.containsKey("capacite") ){
+            errors.put(n.getLCPrefix()+" Declaration capacite manquante", ERROR_KIND.MISSING_DECLARATION);
+            System.out.println(n.getLCPrefix()+"Declaration capacite manquante");
         }
         return null;
     }
 
     @Override
     public Object visit(ASTDeclaration n) {
-        System.out.println("visitASTDeclaration");
         String key = (String) n.getChild(0).accept(this);
         Double value = (Double) n.getChild(1).accept(this);
         return new Object[] { key, value };
     }
     @Override
     public Object visit(ASTChaine n) {
-        System.out.println("visitASTChiane");
         return n.toString().substring(1, n.toString().length()-1);
     }
     @Override
     public Object visit(ASTIdentificateur n) {
-        System.out.println("visitASTID");
         return n.toString();
     }
 
     @Override
     public Object visit(ASTNombre n){
-        System.out.println("visitASTNombre");
         return n.getNumberValue();
     }
 }

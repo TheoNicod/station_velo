@@ -80,11 +80,6 @@ public class ParserTest {
         assertEquals(3, nb);
     }
 
-    @Test
-    public void test () {
-
-    }
-
     
 
 
