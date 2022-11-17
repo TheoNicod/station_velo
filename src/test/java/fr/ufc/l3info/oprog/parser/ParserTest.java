@@ -23,7 +23,7 @@ public class ParserTest {
 
     @Test
     public void testTokenizer() throws StationParserException, IOException {
-        List<Token> tokens = StationFileTokenizer.tokenize(new File(path + "stationsOK.txt"));
+        List<Token> tokens = StationFileTokenizer.tokenize(new File(path + "/stationsOK.txt"));
         assertEquals(30, tokens.size());
         String[] expected = { "station", "\"21 - Avenue Fontaine Argent, Boulevard Diderot\"", "{",
                 "latitude", ":", "47.2477615", ";", "longitude", ":", "5.9835995", ";",

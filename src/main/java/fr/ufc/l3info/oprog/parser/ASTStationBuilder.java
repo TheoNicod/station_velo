@@ -13,7 +13,7 @@ public class ASTStationBuilder implements ASTNodeVisitor {
     private Set<Station> stations;
 
     public Set<Station> getStations() {
-        return new HashSet<>(stations);
+        return new HashSet(stations);
     }
 
     public ASTStationBuilder() {
@@ -21,7 +21,7 @@ public class ASTStationBuilder implements ASTNodeVisitor {
     }
 
     public void reset() {
-        stations = new HashSet<>();
+        stations = new HashSet();
     }
 
     @Override

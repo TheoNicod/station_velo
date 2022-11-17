@@ -389,7 +389,7 @@ public class StationWithMocksTest {
     public void testDistance(){
         Station a = new Station("a", 47.5, 6.02, 10);
         Station b = new Station("b", 47.5, 8, 10);
-        Assert.assertEquals(76.9, (double) Math.round(a.distance(b) * 10) / 10, 0.0);
+        Assert.assertEquals(148.7, a.distance(b), 0.0);
     }
 
     @Test

@@ -20,7 +20,7 @@ public class Station {
     }
 
     public void setRegistre(IRegistre registre) {
-        if (registre == null) return;
+        //if (registre == null) return;
         this.registre = registre;
     }
 
@@ -125,12 +125,19 @@ public class Station {
 
     //distances courtes
     public double distance(Station s) {
-        if (s == null) return 0;
-        double l = (double) (this.latitude + s.latitude) / 2;
-        double x = (s.longitude - this.longitude) * Math.cos(l);
-        double y = s.latitude - this.longitude;
-        double z = Math.sqrt((Math.pow(x, 2) + Math.pow(y, 2)));
-        return 1.852 * z;
+        if(s == null){
+            return -1;
+        }
+        double degLat = Math.abs(Math.toRadians(s.latitude - this.latitude));
+        double degLon = Math.abs(Math.toRadians(s.longitude - this.longitude));
+        double latitude1 = Math.toRadians(this.latitude);
+        double latitude2 = Math.toRadians(s.latitude);
+        double a = Math.pow(Math.sin(degLat / 2), 2) + Math.pow(Math.sin(degLon / 2), 2) *
+                Math.cos(latitude1) *
+                Math.cos(latitude2);
+        double rad = 6371;
+        double c = 2 * Math.asin(Math.sqrt(a));
+        return Math.round((rad * c)*10)/10.0;
     }
 
 

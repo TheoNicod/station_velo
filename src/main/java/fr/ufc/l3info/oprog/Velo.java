@@ -68,6 +68,7 @@ public class Velo implements IVelo {
         if(accroche)
             return -1;
         this.revision = 500;
+        this.kilometrage = 0;
         this.abime = false;
         return 0;
     }

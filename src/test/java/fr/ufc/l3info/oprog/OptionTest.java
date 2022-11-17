@@ -1,6 +1,6 @@
 package fr.ufc.l3info.oprog;
 
-import org.jetbrains.annotations.TestOnly;
+//import org.jetbrains.annotations.TestOnly;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.theories.suppliers.TestedOn;
@@ -252,8 +252,8 @@ public class OptionTest {
 
     @Test
     public void testOptFreinsDisqueToString() {
-        OptSuspensionArriere suspensionArriere = new OptSuspensionArriere(new Velo());
-        Assert.assertTrue(suspensionArriere.toString().contains("freins à disque"));
+        OptFreinsDisque freinsDisque = new OptFreinsDisque(new Velo());
+        Assert.assertTrue(freinsDisque.toString().contains("freins à disque"));
     }
 
     @Test
