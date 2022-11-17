@@ -120,8 +120,6 @@ public class Station {
         }
     }
 
-
-
     //distances courtes
     public double distance(Station s) {
         if(s == null){

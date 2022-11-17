@@ -205,14 +205,6 @@ public class AbonneTest_RC {
         Abonne b = new Abonne("Fred", "12345-55555-11111111111-47");
         Assert.assertNotEquals(a.hashCode(), b.hashCode());
     }
-
-    /**Test equals(Object) */
-    /*@Test
-    public void testEqualsNull() throws IncorrectNameException{
-        Abonne a = new Abonne("theo");
-        Assert.assertEquals(true, a.equals(null));
-    }*/
-
     @Test
     public void testEqualsSame() throws IncorrectNameException{
         Abonne a = new Abonne("theo");

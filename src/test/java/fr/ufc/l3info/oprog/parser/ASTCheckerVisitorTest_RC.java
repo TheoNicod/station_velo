@@ -23,9 +23,7 @@ public class ASTCheckerVisitorTest_RC {
         ASTCheckerVisitor visitor = new ASTCheckerVisitor();
         n.accept(visitor);
         assertTrue(visitor.getErrors().containsValue(ERROR_KIND.EMPTY_LIST));
-        //assertTrue(1==2);
     }
-
     //ajout d'un test ok
 
 
@@ -68,7 +66,6 @@ public class ASTCheckerVisitorTest_RC {
         n.accept(visitor);
         assertTrue(visitor.getErrors().containsValue(ERROR_KIND.WRONG_NUMBER_VALUE));
     }
-
     @Test
     public void TestMultipleErreur() throws StationParserException, IOException{
         ASTNode n = parser.parse(new File("./target/classes/data/stationsMultipleErreur.txt"));

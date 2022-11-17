@@ -25,7 +25,6 @@ public class JRegistreTest {
         JRegistre r = new JRegistre();
         IVelo v = new Velo('t');
         Assert.assertEquals(-1, r.emprunter(null, v, System.currentTimeMillis()));
-
         Abonne a = new Abonne("theo", "888888888888888888888888");
         Assert.assertEquals(-1, r.emprunter(a, null, System.currentTimeMillis()));
     }
@@ -36,7 +35,6 @@ public class JRegistreTest {
         IVelo v = new Velo('t');
         Abonne a = new Abonne("theo", "888888888888888888888888");
         r.emprunter(a, v , 20082022);
-
         Abonne b = new Abonne("jean", "99999999999999999999999");
         Assert.assertEquals(-2, r.emprunter(b, v, System.currentTimeMillis()));
     }
@@ -49,7 +47,6 @@ public class JRegistreTest {
         r.emprunter(a, v , System.currentTimeMillis());
         r.retourner(v, System.currentTimeMillis());
         Assert.assertEquals(-2, r.emprunter(a, v, System.currentTimeMillis()));
-
         Abonne b = new Abonne("jean", "99999999999999999999999");
         Assert.assertEquals(-2, r.emprunter(b, v, System.currentTimeMillis()));
     }
@@ -85,7 +82,6 @@ public class JRegistreTest {
         IVelo v = new Velo('t');
         Abonne a = new Abonne("Theo", "999999999999999999999999999999999999999999999");
         r.emprunter(a, v , System.currentTimeMillis());
-
         Assert.assertEquals(-3, r.retourner(v, 10));
     }
 
@@ -94,7 +90,6 @@ public class JRegistreTest {
         JRegistre r = new JRegistre();
         IVelo v = new Velo('t');
         Abonne a = new Abonne("Theo", "999999999999999999999999999999999999999999999");
-
         Assert.assertEquals(-2, r.retourner(v, 10));
     }
 
@@ -112,10 +107,8 @@ public class JRegistreTest {
         Abonne a = new Abonne("theo", "888888888888888888888");
         IVelo v1 = new Velo('t');
         IVelo v2 = new Velo('t');
-
         r.emprunter(a, v1, System.currentTimeMillis());
         r.emprunter(a, v2, System.currentTimeMillis());
-
         Assert.assertEquals(2, r.nbEmpruntsEnCours(a));
 
     }
@@ -124,7 +117,6 @@ public class JRegistreTest {
     public void testNbEmpruntEnCoursDefaut() throws IncorrectNameException {
         JRegistre r = new JRegistre();
         Abonne a = new Abonne("theo", "888888888888888888888");
-
         Assert.assertEquals(0, r.nbEmpruntsEnCours(a));
     }
 
@@ -134,7 +126,6 @@ public class JRegistreTest {
         Abonne a = new Abonne("theo", "888888888888888888888");
         IVelo v1 = new Velo('t');
         IVelo v2 = new Velo('t');
-
         r.emprunter(a, v1, System.currentTimeMillis());
         r.emprunter(a, v2, System.currentTimeMillis());
         r.retourner(v1, System.currentTimeMillis());
