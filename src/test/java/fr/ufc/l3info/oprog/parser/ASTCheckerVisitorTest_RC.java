@@ -178,19 +178,6 @@ public class ASTCheckerVisitorTest_RC {
         assertFalse(visitor.getErrors().containsValue(ERROR_KIND.DUPLICATE_DECLARATION));
         assertEquals(2,visitor.getErrors().size());
     }
-    @Test
-    public void TestDuplicateTwiceStationName() throws StationParserException, IOException{
-        ASTNode n = parser.parse(new File("./target/classes/data/stationsMultipleErreurSame5.txt"));
-        ASTCheckerVisitor visitor = new ASTCheckerVisitor();
-        n.accept(visitor);
-        assertTrue(visitor.getErrors().containsValue(ERROR_KIND.DUPLICATE_DECLARATION));
-        assertFalse(visitor.getErrors().containsValue(ERROR_KIND.EMPTY_LIST));
-        assertFalse(visitor.getErrors().containsValue(ERROR_KIND.EMPTY_STATION_NAME));
-        assertFalse(visitor.getErrors().containsValue(ERROR_KIND.MISSING_DECLARATION));
-        assertFalse(visitor.getErrors().containsValue(ERROR_KIND.DUPLICATE_STATION_NAME));
-        assertFalse(visitor.getErrors().containsValue(ERROR_KIND.WRONG_NUMBER_VALUE));
-        assertEquals(2,visitor.getErrors().size());
-    }
 
 
 

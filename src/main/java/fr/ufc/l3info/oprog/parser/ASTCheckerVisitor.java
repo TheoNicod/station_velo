@@ -57,7 +57,6 @@ public class ASTCheckerVisitor implements ASTNodeVisitor {
     @Override
     public Object visit(ASTStation n) {
         Map<String,Double> declarationList = new HashMap<String, Double>();
-        int i = 0;
         for(ASTNode child: n){
             if(child.value == "[Declaration]"){
                 Object [] declaration = (Object[]) child.accept(this);
@@ -72,7 +71,6 @@ public class ASTCheckerVisitor implements ASTNodeVisitor {
                     System.out.println(n.getLCPrefix()+" Declaration duplique");
                 }
             }
-            i++;
         }
         if(!declarationList.containsKey("latitude") ){
             errors.put(n.getLCPrefix()+" Declaration latitude manquante", ERROR_KIND.MISSING_DECLARATION);
