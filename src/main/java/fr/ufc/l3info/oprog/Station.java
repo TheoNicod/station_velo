@@ -20,7 +20,6 @@ public class Station {
     }
 
     public void setRegistre(IRegistre registre) {
-        //if (registre == null) return;
         this.registre = registre;
     }
 
