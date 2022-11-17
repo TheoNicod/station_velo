@@ -206,5 +206,40 @@ public class AbonneTest_RC {
         Assert.assertNotEquals(a.hashCode(), b.hashCode());
     }
 
+    /**Test equals(Object) */
+    /*@Test
+    public void testEqualsNull() throws IncorrectNameException{
+        Abonne a = new Abonne("theo");
+        Assert.assertEquals(true, a.equals(null));
+    }*/
+
+    @Test
+    public void testEqualsSame() throws IncorrectNameException{
+        Abonne a = new Abonne("theo");
+        Assert.assertEquals(true, a.equals(a));
+    }
+
+    @Test
+    public void testEqualsDifferent() throws IncorrectNameException{
+        Abonne a = new Abonne("theo");
+        Abonne b = new Abonne("jacques", "76767676767676767676");
+        Assert.assertEquals(false, a.equals(b));
+    }
+
+    /** Test hashCode() */
+    @Test
+    public void testHashCodeNotEquals () throws IncorrectNameException {
+        Abonne a = new Abonne ("theo");
+        Abonne b = new Abonne ("jacques");
+        Assert.assertNotEquals(a.hashCode(), b.hashCode());
+    }
+
+    @Test
+    public void testHashCodeNotEquals2 () throws IncorrectNameException {
+        Abonne a = new Abonne ("theo");
+        Abonne b = new Abonne ("theo", "87878765456767890987");
+        Assert.assertNotEquals(a.hashCode(), b.hashCode());
+    }
+
 }
 

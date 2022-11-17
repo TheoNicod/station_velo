@@ -69,6 +69,15 @@ public class ASTCheckerVisitorTest_RC {
         assertTrue(visitor.getErrors().containsValue(ERROR_KIND.WRONG_NUMBER_VALUE));
     }
 
+    @Test
+    public void TestMultipleErreur() throws StationParserException, IOException{
+        ASTNode n = parser.parse(new File("./target/classes/data/stationsMultipleErreur.txt"));
+        ASTCheckerVisitor visitor = new ASTCheckerVisitor();
+        n.accept(visitor);
+        assertTrue(visitor.getErrors().containsValue(ERROR_KIND.WRONG_NUMBER_VALUE));
+        assertTrue(visitor.getErrors().containsValue(ERROR_KIND.MISSING_DECLARATION));
+    }
+
 
     ///tester multiple erreurs
 }

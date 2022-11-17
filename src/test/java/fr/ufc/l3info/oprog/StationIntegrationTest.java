@@ -120,7 +120,7 @@ public class StationIntegrationTest {
         Station s = new Station("test", 47.5, 6.02, 10);
         IRegistre r = new JRegistre();
         s.setRegistre(r);
-        Abonne a = new Abonne("Theo", "999999999999999999999999999999999999999999999999");
+        Abonne a = new Abonne("Fred", "12345-55555-11111111111-47");
         IVelo v1 = new Velo();
         v1.decrocher();
         s.arrimerVelo(v1, 1);
@@ -147,7 +147,7 @@ public class StationIntegrationTest {
         Station s = new Station("test", 47.5, 6.02, 10);
         IRegistre r = new JRegistre();
         s.setRegistre(r);
-        Abonne a = new Abonne("Theo"); //abonné bloqué
+        Abonne a = new Abonne("Fred", "12345-55555-11111111111-55"); //abonné bloqué
         IVelo v1 = new Velo();
         v1.decrocher();
         s.arrimerVelo(v1, 1);
@@ -358,8 +358,8 @@ public class StationIntegrationTest {
     @Test
     public void testDistance(){
         Station a = new Station("a", 47.5, 6.02, 10);
-        Station b = new Station("b", 47.5, 8, 10);
-        Assert.assertEquals(76.9, (double) Math.round(a.distance(b) * 10) / 10, 0.0);
+        Station b = new Station("b", 47.5, 4, 10);
+        Assert.assertEquals(151.7, a.distance(b), 0.0);
     }
 
     @Test

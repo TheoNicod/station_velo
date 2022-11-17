@@ -39,8 +39,8 @@ public class StationIntegrationTest_RC {
     public void TestStationCapaciteNegative() {
         Station st = new Station("Gare", 51.5007, 0.1246, -5);
         Assert.assertEquals(st.getNom(), "Gare");
-        Assert.assertEquals(5, st.capacite());
-        Assert.assertEquals(5,st.nbBornesLibres());
+        Assert.assertEquals(0, st.capacite());  //mettre a 0 ??
+        Assert.assertEquals(0,st.nbBornesLibres());
     }
 
     /**
@@ -66,7 +66,7 @@ public class StationIntegrationTest_RC {
     @Test
     public void TestCapaciteErreurCapacite() {
         st = new Station("Gare", 47.5, 6.2, -5);
-        Assert.assertEquals(5, st.capacite());
+        Assert.assertEquals(0, st.capacite());
     }
     /**
      * Test nbBornesLibres()
@@ -78,7 +78,7 @@ public class StationIntegrationTest_RC {
     @Test
     public void TestNbBornesLibresErreurCapacite(){
         st = new Station("Gare",47.5,5,-5);
-        Assert.assertEquals(5, st.nbBornesLibres());
+        Assert.assertEquals(0, st.nbBornesLibres());
     }
     @Test
     public void TestNbBornesLibresArrimageSimple(){
