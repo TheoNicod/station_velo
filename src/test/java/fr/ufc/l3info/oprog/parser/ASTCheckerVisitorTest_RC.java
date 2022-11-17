@@ -1,6 +1,5 @@
 package fr.ufc.l3info.oprog.parser;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import org.junit.Test;
 
 import java.io.File;
