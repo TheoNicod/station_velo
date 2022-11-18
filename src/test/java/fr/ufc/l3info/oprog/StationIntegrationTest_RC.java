@@ -498,7 +498,7 @@ public class StationIntegrationTest_RC {
     }
     @Test
     public void TestDistanceStationNull(){
-        Assert.assertEquals(-1, st.distance(null), 0);
+        Assert.assertEquals(0, st.distance(null), 0);
     }
     /**
      * Test Maintenant

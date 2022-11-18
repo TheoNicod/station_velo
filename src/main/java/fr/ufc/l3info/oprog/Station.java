@@ -123,7 +123,7 @@ public class Station {
     //distances courtes
     public double distance(Station s) {
         if(s == null){
-            return -1;
+            return 0;
         }
         double degLat = Math.abs(Math.toRadians(s.latitude - this.latitude));
         double degLon = Math.abs(Math.toRadians(s.longitude - this.longitude));
