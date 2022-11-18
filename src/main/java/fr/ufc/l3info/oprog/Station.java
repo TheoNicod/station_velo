@@ -68,8 +68,8 @@ public class Station {
         if (this.registre == null || this.station[b - 1] != null) return -2;
         if (v.arrimer() != 0) return -3;
         this.station[b - 1] = v;
+        if (v.estAbime() && registre.emprunteur(v) != null ) registre.emprunteur(v).bloquer();      // a verifier !!!!!!!!!!
         if (this.registre.retourner(v, this.maintenant()) != 0) return -4;
-        if (v.estAbime()) registre.emprunteur(v).bloquer();      // a verifier !!!!!!!!!!
         return 0;
     }
 
