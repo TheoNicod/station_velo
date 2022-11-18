@@ -8,7 +8,7 @@ import java.util.Set;
 /**
  *  Classe implantant un registre simple en Java.
  */
-public class JRegistre implements IRegistre {
+public class JRegistre implements IRegistre{
 
     private Map<Abonne, Set<Emprunt>> empruntsParAbonne;
     private Map<IVelo, Set<Emprunt>> empruntsParVelo;
@@ -113,6 +113,12 @@ public class JRegistre implements IRegistre {
             }
         }
         return facture;
+    }
+
+
+    public Abonne emprunteur(IVelo velo) {
+        if(velo == null || !empruntsEnCours.containsKey(velo)) return null;
+        return empruntsEnCours.get(velo);
     }
 
 
