@@ -174,7 +174,22 @@ public class JRegistreTest_RC {
         Assert.assertEquals(0,reg.emprunter(abonne,velo2,date+10));
         Assert.assertEquals(2,reg.nbEmpruntsEnCours(abonne));
     }
-
+    @Test
+    public void TestEmpruntChevauchement() {
+        Assert.assertEquals(0, reg.emprunter(abonne,velo,date));
+        Assert.assertEquals(0,reg.retourner(velo,date+10));
+        Assert.assertEquals(0,reg.emprunter(abonne,velo,date-10));
+        Assert.assertEquals(-3,reg.retourner(velo,date+5));
+        Assert.assertEquals(1,reg.nbEmpruntsEnCours(abonne));
+    }
+    @Test
+    public void TestEmpruntChevauchement1() {
+        Assert.assertEquals(0, reg.emprunter(abonne,velo,date));
+        Assert.assertEquals(0,reg.retourner(velo,date+10));
+        Assert.assertEquals(0,reg.emprunter(abonne,velo,date-10));
+        Assert.assertEquals(-3,reg.retourner(velo,date+15));
+        Assert.assertEquals(1,reg.nbEmpruntsEnCours(abonne));
+    }
     /**
      * Test facturation
      */
