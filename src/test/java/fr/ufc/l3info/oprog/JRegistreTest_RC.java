@@ -236,14 +236,33 @@ public class JRegistreTest_RC {
         Assert.assertEquals(cout1+cout2, reg.facturation(abonne, date,fin), 0);
     }
     @Test
-    public void TestFacturationAbonneNull() throws IncorrectNameException{
+    public void TestFacturationAbonneNull(){
         Station st = new Station("gare", 47.5,6.02, 10);
         long debut = st.maintenant();
         long fin =  debut +500000;
-
         Assert.assertEquals(0, reg.facturation(null, debut,fin), 0);
     }
 
+    @Test
+    public void TestEmprunteurVeloNull(){
+        Assert.assertEquals(null,reg.emprunteur(null));
+    }
+
+    @Test
+    public void TestEmprunteurVeloNonEmprunter(){
+        Assert.assertEquals(null,reg.emprunteur(velo));
+    }
+    @Test
+    public void TestEmprunteurVeloEncoursEmprunt(){
+        reg.emprunter(abonne,velo,date);
+        Assert.assertEquals(abonne, reg.emprunteur(velo));
+    }
+    @Test
+    public void TestEmprunteurVeloEmpruntFini(){
+        reg.emprunter(abonne,velo,date);
+        reg.retourner(velo,date+10);
+        Assert.assertEquals(null, reg.emprunteur(velo));
+    }
 
 
 }

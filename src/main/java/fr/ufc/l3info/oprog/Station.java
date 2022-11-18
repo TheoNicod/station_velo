@@ -54,10 +54,9 @@ public class Station {
         if (this.list_abonne_emprunt.contains(a)) return null;
         if (a.estBloque()) return null;
         if (this.registre == null) return null;
-
         if (this.station[b - 1].decrocher() != 0) return null;
         if (this.registre.emprunter(a, this.station[b - 1], this.maintenant()) != 0) return null;
-
+        if(veloALaBorne(b).estAbime()) return null;
         this.list_abonne_emprunt.add(a);
         IVelo v = this.station[b - 1];
         this.station[b - 1] = null;
@@ -68,8 +67,8 @@ public class Station {
         if (v == null || b < 1 || b > this.capacite) return -1;
         if (this.registre == null || this.station[b - 1] != null) return -2;
         if (v.arrimer() != 0) return -3;
-
         this.station[b - 1] = v;
+        if (v.estAbime() && registre.emprunteur(v) != null ) registre.emprunteur(v).bloquer();      // a verifier !!!!!!!!!!
         if (this.registre.retourner(v, this.maintenant()) != 0) return -4;
         return 0;
     }

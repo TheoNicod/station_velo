@@ -208,6 +208,12 @@ public class StationIntegrationTest_RC {
         Assert.assertEquals(null, st.veloALaBorne(2));
         Assert.assertEquals(null,st.emprunterVelo(abonne,2));
     }
+    @Test
+    public void TestEmprunterVeloAbimer(){
+        velo.abimer();
+        st.arrimerVelo(velo,1);
+        Assert.assertEquals(null, st.emprunterVelo(abonne,1));
+    }
     /**
      * test arrimer()
      */
@@ -247,7 +253,21 @@ public class StationIntegrationTest_RC {
         Assert.assertEquals(-4, st.arrimerVelo(velo,2));
         Assert.assertEquals(-3, st.arrimerVelo(velo,3));
     }
-
+    @Test
+    public void TestArrimerVeloAbimer(){
+        st.arrimerVelo(velo,1);
+        st.emprunterVelo(abonne,1);
+        velo.abimer();
+        Assert.assertEquals(0,st.arrimerVelo(velo,1));
+        Assert.assertTrue(abonne.estBloque());
+    }
+    @Test
+    public void TestArrimerVeloBonEtat(){
+        st.arrimerVelo(velo,1);
+        st.emprunterVelo(abonne,1);
+        Assert.assertEquals(0,st.arrimerVelo(velo,1));
+        Assert.assertFalse(abonne.estBloque());
+    }
     /**
      * Test equilibrer
      */
