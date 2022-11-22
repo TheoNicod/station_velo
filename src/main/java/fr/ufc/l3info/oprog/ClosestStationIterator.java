@@ -1,6 +1,5 @@
 package fr.ufc.l3info.oprog;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Iterator;
 
