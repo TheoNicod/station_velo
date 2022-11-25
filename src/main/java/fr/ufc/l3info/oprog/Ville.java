@@ -38,6 +38,7 @@ public class Ville implements Iterable<Station>{
         ASTCheckerVisitor visitor = new ASTCheckerVisitor();
         n.accept(visitor);
         ASTStationBuilder builder  =  new ASTStationBuilder();
+        n.accept(builder);
         if(visitor.getErrors().size() == 0 ){
             for(Station s : builder.getStations()){
                 stationSet.add(s);
@@ -49,14 +50,14 @@ public class Ville implements Iterable<Station>{
     }
     void setStationPrincipale(String st){
         for(Station s: stationSet) {
-            if (s.getNom() == st) {
+            if (s.getNom().equals(st)) {
                 stationPrincipal = s;
             }
         }
     }
     public Station getStation(String nom){
         for(Station s: stationSet){
-            if(s.getNom() == nom){
+            if(s.getNom().equals(nom)){
                 return s;
             }
         }
@@ -86,8 +87,8 @@ public class Ville implements Iterable<Station>{
         return abonne;
     }
 
-    public Iterator<Station> iterator(){
-        return new ClosestStationIterator();
+    public Iterator<Station> iterator() {
+        return new ClosestStationIterator(stationSet, stationPrincipal);
     }
 
 
