@@ -1,5 +1,6 @@
 package fr.ufc.l3info.oprog;
 
+
 //import org.graalvm.compiler.hotspot.replacements.AssertionSnippets;
 import org.junit.Assert;
 import org.junit.Before;
@@ -157,11 +158,5 @@ public class VilleTest {
         Assert.assertEquals(2.2, facturation_mois.get(romain), 0.00);
         Assert.assertEquals(2.2, facturation_mois.get(hugo), 0.00);
     }
-
-
-
-
-
-
 
 }
