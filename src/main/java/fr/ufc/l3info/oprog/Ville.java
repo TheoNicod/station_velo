@@ -42,14 +42,14 @@ public class Ville implements Iterable<Station>{
     }
     void setStationPrincipale(String st){
         for(Station s: stationSet) {
-            if (s.getNom() == st) {
+            if (s.getNom().equals(st)) {
                 stationPrincipal = s;
             }
         }
     }
     public Station getStation(String nom){
         for(Station s: stationSet){
-            if(s.getNom() == nom){
+            if(s.getNom().equals(nom)){
                 return s;
             }
         }
@@ -78,14 +78,10 @@ public class Ville implements Iterable<Station>{
         return abonne;
     }
 
-    public Iterator<Station> iterator(){
-        return new ClosestStationIterator(stationSet,stationPrincipal);
+    public Iterator<Station> iterator() {
+        return new ClosestStationIterator(stationSet, stationPrincipal);
     }
 
 
-    Map<Abonne, Double> facturation(int mois, int annee){
-        for(Station s : stationSet){
-        }
-        return  null;
-    }
+    Map<Abonne, Double> facturation(int mois, int annee){return null;}
 }
