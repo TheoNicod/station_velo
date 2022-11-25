@@ -31,6 +31,7 @@ public class Ville implements Iterable<Station>{
         ASTCheckerVisitor visitor = new ASTCheckerVisitor();
         n.accept(visitor);
         ASTStationBuilder builder  =  new ASTStationBuilder();
+        n.accept(builder);
         if(visitor.getErrors().size() == 0 ){
             for(Station s : builder.getStations()){
                 stationSet.add(s);
@@ -78,9 +79,13 @@ public class Ville implements Iterable<Station>{
     }
 
     public Iterator<Station> iterator(){
-        return new ClosestStationIterator();
+        return new ClosestStationIterator(stationSet,stationPrincipal);
     }
 
 
-    Map<Abonne, Double> facturation(int mois, int annee){return null;}
+    Map<Abonne, Double> facturation(int mois, int annee){
+        for(Station s : stationSet){
+        }
+        return  null;
+    }
 }
