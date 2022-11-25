@@ -1,6 +1,7 @@
 package fr.ufc.l3info.oprog;
 
-import org.graalvm.compiler.hotspot.replacements.AssertionSnippets;
+
+//import org.graalvm.compiler.hotspot.replacements.AssertionSnippets;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +23,7 @@ public class VilleTest {
 
     /* void initialiser(File f) throws IOException */
     @Test
-    public void initialiserTestOk() {
+    public void initialiserTestOk() throws IOException{
         v.initialiser(new File("./target/classes/data/stationsOK.txt"));
     }
 
@@ -32,7 +33,7 @@ public class VilleTest {
     }
 
     @Test (expected = IOException.class)
-    public void initialiserTestErreurFichier() {
+    public void initialiserTestErreurFichier() throws IOException{
         v.initialiser(new File("./target/classes/data/stationsMultipleErreur.txt"));
     }
 
@@ -48,7 +49,7 @@ public class VilleTest {
 
     /* Station getStation(String nom) */
     @Test
-    public void getStationTestOk() {
+    public void getStationTestOk() throws IOException{
         v.initialiser(new File("./target/classes/data/stationsOK.txt"));
         Station s = v.getStation("Avenue du Maréchal Foch");
         Assert.assertNotEquals(null, s);
@@ -56,15 +57,15 @@ public class VilleTest {
     }
 
     @Test
-    public void getStationTestStationInexistante() {
+    public void getStationTestStationInexistante() throws IOException{
         v.initialiser(new File("./target/classes/data/stationsOK.txt"));
         Station s = v.getStation("Avenue");
-        Assert.assertEquals(null, s);
+        Assert.assertNull(s);
     }
 
     /* Station getStationPlusProche(double lat, double lon) */
     @Test
-    public void getStationPlusProcheTestPremiereStation() {
+    public void getStationPlusProcheTestPremiereStation() throws IOException {
         v.initialiser(new File("./target/classes/data/stationsOK.txt"));
         Station s = v.getStationPlusProche(47.247761, 5.983599);
         Assert.assertNotEquals(null, s);
@@ -72,10 +73,10 @@ public class VilleTest {
     }
 
     @Test
-    public void getStationPlusProcheTestDeuxiemeStation() {
+    public void getStationPlusProcheTestDeuxiemeStation() throws IOException{
         v.initialiser(new File("./target/classes/data/stationsOK.txt"));
         Station s = v.getStationPlusProche(47.24651, 6.02267);
-        Assert.assertNotEquals(null, s);
+        //Assert.assertNotNull(s);
         Assert.assertEquals("Avenue du Maréchal Foch", s.getNom());
     }
 
@@ -88,7 +89,7 @@ public class VilleTest {
 
     @Test
     public void creerAbonneTestNomVide() {
-        Assert.assertEquals(null, v.creerAbonne("", "12345-55555-11111111111-47"));
+        Assert.assertNull(v.creerAbonne("", "12345-55555-11111111111-47"));
     }
 
     @Test
@@ -99,15 +100,15 @@ public class VilleTest {
 
     /* Iterator<Station> iterator() */
     @Test
-    public void iteratorTestStationPrincipale() { //bizarre
+    public void iteratorTestStationPrincipale() throws IOException{ //bizarre
         v.initialiser(new File("./target/classes/data/stationsOK.txt"));
         ClosestStationIterator it = (ClosestStationIterator) v.iterator();
         v.setStationPrincipale("Avenue du Maréchal Foch");
-        Assert.assertEquals("Avenue du Maréchal Foch", it.next());
+        Assert.assertEquals("Avenue du Maréchal Foch", it.next().getNom());
     }
 
     @Test
-    public void iteratorTestNombre() { //bizarre
+    public void iteratorTestNombre() throws IOException{ //bizarre
         v.initialiser(new File("./target/classes/data/stationsOK.txt"));
         ClosestStationIterator it = (ClosestStationIterator) v.iterator();
         int i = 0;
@@ -121,30 +122,30 @@ public class VilleTest {
     /* Map<Abonne, Double> facturation(int mois, int annee)  */
     @Test
     public void facturationTestDateInvalide() {
-        Assert.assertEquals(null, v.facturation(0, 2022));
-        Assert.assertEquals(null, v.facturation(13, 2022));
-        Assert.assertEquals(null, v.facturation(1, 2023));
-        Assert.assertEquals(null, v.facturation(1, -1));
+        Assert.assertNull(v.facturation(0, 2022));
+        Assert.assertNull(v.facturation(13, 2022));
+        Assert.assertNull(v.facturation(1, 2023));
+        Assert.assertNull(v.facturation(1, -1));
     }
 
     @Test
     public void facturationTest() throws IncorrectNameException{
-        Abonne a = new Abonne("Theo", "12345-55555-11111111111-47");
-        Abonne b = new Abonne("Romain", "12345-55555-22222222222-47");
-        Abonne c = new Abonne("Hugo", "12345-55555-33333333333-47");
+        Abonne theo = new Abonne("Theo", "12345-55555-11111111111-47");
+        Abonne romain = new Abonne("Romain", "12345-55555-22222222222-47");
+        Abonne hugo = new Abonne("Hugo", "12345-55555-33333333333-47");
 
-        IVelo ve [] = new Velo [5];
+        IVelo ve [] = new IVelo [5];
         FabriqueVelo fab = FabriqueVelo.getInstance();
         for(int i = 0; i < 5; i++) {
             ve[i] = fab.construire('h', "CADRE_ALUMINIUM");
         }
 
         IRegistre r = new JRegistre();
-        r.emprunter(a, ve[0], System.currentTimeMillis());
-        r.emprunter(b, ve[1], System.currentTimeMillis());
-        r.emprunter(c, ve[2], System.currentTimeMillis());
-        r.emprunter(a, ve[3], System.currentTimeMillis());
-        r.emprunter(b, ve[4], System.currentTimeMillis());
+        r.emprunter(theo, ve[0], System.currentTimeMillis());
+        r.emprunter(romain, ve[1], System.currentTimeMillis());
+        r.emprunter(hugo, ve[2], System.currentTimeMillis());
+        r.emprunter(theo, ve[3], System.currentTimeMillis());
+        r.emprunter(romain, ve[4], System.currentTimeMillis());
 
         for(int i = 0; i < 5; i++) r.retourner(ve[i], System.currentTimeMillis() + 3600000);
         // == emprunt velo cadre alu 1h (x2 pour Théo)
@@ -153,15 +154,9 @@ public class VilleTest {
         facturation_mois = v.facturation(11, 2022);
 
         Assert.assertEquals(3, facturation_mois.size());
-        Assert.assertEquals(4.4, facturation_mois.get("Theo"), 0.00);
-        Assert.assertEquals(2.2, facturation_mois.get("Romain"), 0.00);
-        Assert.assertEquals(2.2, facturation_mois.get("Hugo"), 0.00);
+        Assert.assertEquals(4.4, facturation_mois.get(theo), 0.00);
+        Assert.assertEquals(2.2, facturation_mois.get(romain), 0.00);
+        Assert.assertEquals(2.2, facturation_mois.get(hugo), 0.00);
     }
-
-
-
-
-
-
 
 }
