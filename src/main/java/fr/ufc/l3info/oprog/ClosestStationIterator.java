@@ -13,10 +13,9 @@ public class ClosestStationIterator implements Iterator<Station>{
     public ClosestStationIterator(Set<Station> set, Station s) {
         setStation = new HashSet<>();
         if(s == null) {
-            int i = 0;
             for(Station st : set) {
-                if(i == 0) depart = st; //bizarre mais c'est pour s'assurer que s != null
-                i++;
+                depart = st;
+                break;
             }
         }
         courrante = depart = s;

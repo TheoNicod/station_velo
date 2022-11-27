@@ -45,7 +45,7 @@ public class ClosestStationIteratorTest {
         stationSet.add(stationPrincipale);
         stationSet.add(new Station("Chamars", 25.4,25.0,5));
         ClosestStationIterator clsStItr = new ClosestStationIterator(stationSet,stationPrincipale);
-        Assert.assertFalse(clsStItr.hasNext());
+        Assert.assertTrue(clsStItr.hasNext());
     }
     @Test
     public void TestHasNextAfterNext(){

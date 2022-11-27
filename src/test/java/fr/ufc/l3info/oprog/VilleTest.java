@@ -55,7 +55,13 @@ public class VilleTest {
         Assert.assertNotEquals(null, s);
         Assert.assertEquals("Avenue du Maréchal Foch", s.getNom());
     }
-
+    @Test
+    public void getStationTestOk2() throws IOException {
+        v.initialiser(new File("./target/classes/data/stationsOK.txt"));
+        Station s = v.getStation("21 - Avenue Fontaine Argent, Boulevard Diderot");
+        Assert.assertNotEquals(null, s);
+        Assert.assertEquals("21 - Avenue Fontaine Argent, Boulevard Diderot", s.getNom());
+    }
     @Test
     public void getStationTestStationInexistante() throws IOException{
         v.initialiser(new File("./target/classes/data/stationsOK.txt"));
