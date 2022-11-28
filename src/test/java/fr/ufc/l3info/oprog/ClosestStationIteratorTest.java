@@ -9,7 +9,6 @@ import java.util.Set;
 
 public class ClosestStationIteratorTest {
     Set<Station> stationSet;
-    Ville ville;
 
     @Before
     public void before() {
@@ -18,9 +17,9 @@ public class ClosestStationIteratorTest {
 
     @Test
     public void TestClosestStationIteratorStationNull(){
-        ClosestStationIterator clsStItr = new ClosestStationIterator(stationSet,null);
-        Assert.assertEquals(null,clsStItr);
-
+        ClosestStationIterator clsStItr = new ClosestStationIterator(null,null);
+        Assert.assertNotNull(clsStItr);
+        Assert.assertNull(clsStItr.next());
     }
 
 
@@ -45,7 +44,7 @@ public class ClosestStationIteratorTest {
         stationSet.add(stationPrincipale);
         stationSet.add(new Station("Chamars", 25.4,25.0,5));
         ClosestStationIterator clsStItr = new ClosestStationIterator(stationSet,stationPrincipale);
-        Assert.assertFalse(clsStItr.hasNext());
+        Assert.assertTrue(clsStItr.hasNext());
     }
     @Test
     public void TestHasNextAfterNext(){
@@ -94,7 +93,8 @@ public class ClosestStationIteratorTest {
         stationSet.add(station4);
         stationSet.add(new Station("Chamars", 25.4,25.0,5));
         ClosestStationIterator clsStItr = new ClosestStationIterator(stationSet,station4);
-        Assert.assertFalse(clsStItr.hasNext());
+        Assert.assertEquals(station4, clsStItr.next());
+        Assert.assertEquals(station3, clsStItr.next());
     }
 
 
@@ -107,20 +107,24 @@ public class ClosestStationIteratorTest {
         ClosestStationIterator clsStItr = new ClosestStationIterator(stationSet,station1);
         Assert.assertEquals(null, clsStItr.next());
     }
+
+
     @Test
     public void TestNext1(){
         Station station1 = new Station("Gare Viotte", 0,0, 5);
-        Station station2 = new Station("Chamars", 100,100, 5);
-        Station station3 = new Station("station", 200,200, 5);
-        Station station4 = new Station("station2", 300,300, 5);
+        Station station2 = new Station("Chamars", 10,10, 5);
+        Station station3 = new Station("station", 20,20, 5);
+        Station station4 = new Station("station2", 30,30, 5);
         stationSet.add(station1);
         stationSet.add(station2);
         stationSet.add(station3);
         stationSet.add(station4);
         ClosestStationIterator clsStItr = new ClosestStationIterator(stationSet,station1);
+
         clsStItr.next();
         Assert.assertEquals(station2, clsStItr.next());
     }
+
     @Test
     public void TestNextNoNext(){
         Station station1 = new Station("Gare Viotte", 0,0, 5);
@@ -133,8 +137,8 @@ public class ClosestStationIteratorTest {
     @Test
     public void TestNext(){
         Station station1 = new Station("Gare Viotte", 0,0, 5);
-        Station station2 = new Station("Chamars", 100,100, 5);
-        Station station3 = new Station("station", 200,200, 5);
+        Station station2 = new Station("Chamars", 10,10, 5);
+        Station station3 = new Station("station", 20,20, 5);
         stationSet.add(station1);
         stationSet.add(station3);
         stationSet.add(station2);
@@ -146,14 +150,20 @@ public class ClosestStationIteratorTest {
     @Test
     public void TestNextSameDistantce(){
         Station station1 = new Station("Gare Viotte", 0,0, 5);
-        Station station2 = new Station("Chamars", 100,100, 5);
-        Station station3 = new Station("station", 100,100, 5);
+        Station station2 = new Station("Chamars", 10,10, 5);
+        Station station3 = new Station("station", 10,10, 5);
         stationSet.add(station1);
         stationSet.add(station3);
         stationSet.add(station2);
         ClosestStationIterator clsStItr = new ClosestStationIterator(stationSet,station1);
         Assert.assertEquals(station1, clsStItr.next());
-        Assert.assertEquals(station3, clsStItr.next());
+        Assert.assertEquals(station3, clsStItr.next()); // !!!!!!!!!
         Assert.assertEquals(station2, clsStItr.next());
+    }
+
+    @Test
+    public void removeTest() {
+        ClosestStationIterator clsStItr = new ClosestStationIterator(null,null);
+        clsStItr.remove();
     }
 }
