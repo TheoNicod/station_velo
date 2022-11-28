@@ -31,12 +31,16 @@ public class ClosestStationIteratorTest {
         Station stationPrincipale = new Station("Gare Viotte", 25.0,25.0, 5);
         ClosestStationIterator clsStItr = new ClosestStationIterator(null,stationPrincipale);
         Assert.assertFalse(clsStItr.hasNext());
+        stationSet.clear();
+
     }
     @Test
     public void TestHasNextNullStart(){
         Station stationPrincipale = new Station("Gare Viotte", 25.0,25.0, 5);
         ClosestStationIterator clsStItr = new ClosestStationIterator(stationSet,null);
         Assert.assertFalse(clsStItr.hasNext());
+        stationSet.clear();
+
     }
     @Test
     public void TestHasNext(){
@@ -54,6 +58,8 @@ public class ClosestStationIteratorTest {
         ClosestStationIterator clsStItr = new ClosestStationIterator(stationSet,stationPrincipale);
         clsStItr.next();
         Assert.assertTrue(clsStItr.hasNext());
+        stationSet.clear();
+
     }
     @Test
     public void TestHasNextAfterTooMuchNext(){
@@ -64,6 +70,8 @@ public class ClosestStationIteratorTest {
         clsStItr.next();
         clsStItr.next();
         Assert.assertFalse(clsStItr.hasNext());
+        stationSet.clear();
+
     }
     @Test
     public void TestHasNextAfterNotFromFirst(){
@@ -80,6 +88,8 @@ public class ClosestStationIteratorTest {
         clsStItr.next();
         clsStItr.next();
         Assert.assertTrue(clsStItr.hasNext());
+        stationSet.clear();
+
     }
     @Test
     public void TestHasNextAfterNotFromFirst2(){
@@ -106,6 +116,8 @@ public class ClosestStationIteratorTest {
         Station station1 = new Station("Gare Viotte", 0,0, 5);
         ClosestStationIterator clsStItr = new ClosestStationIterator(stationSet,station1);
         Assert.assertEquals(null, clsStItr.next());
+        stationSet.clear();
+
     }
 
 
@@ -122,7 +134,9 @@ public class ClosestStationIteratorTest {
         ClosestStationIterator clsStItr = new ClosestStationIterator(stationSet,station1);
 
         clsStItr.next();
-        Assert.assertEquals(station2, clsStItr.next());
+        Assert.assertEquals(station3, clsStItr.next());
+        stationSet.clear();
+
     }
 
     @Test
@@ -133,9 +147,11 @@ public class ClosestStationIteratorTest {
         clsStItr.next();
         clsStItr.next();
         Assert.assertEquals(null, clsStItr.next());
+        stationSet.clear();
+
     }
     @Test
-    public void TestNext(){
+    public void TestNextEqualDistance(){
         Station station1 = new Station("Gare Viotte", 0,0, 5);
         Station station2 = new Station("Chamars", 10,10, 5);
         Station station3 = new Station("station", 20,20, 5);
@@ -146,9 +162,11 @@ public class ClosestStationIteratorTest {
         Assert.assertEquals(station1, clsStItr.next());
         Assert.assertEquals(station2, clsStItr.next());
         Assert.assertEquals(station3, clsStItr.next());
+        stationSet.clear();
+
     }
     @Test
-    public void TestNextSameDistantce(){
+    public void TestNextDistantce0(){
         Station station1 = new Station("Gare Viotte", 0,0, 5);
         Station station2 = new Station("Chamars", 10,10, 5);
         Station station3 = new Station("station", 10,10, 5);

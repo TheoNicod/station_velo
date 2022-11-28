@@ -2,8 +2,6 @@ package fr.ufc.l3info.oprog;
 
 
 import fr.ufc.l3info.oprog.parser.*;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import javax.swing.text.html.parser.Parser;
 import java.io.File;
@@ -22,13 +20,13 @@ public class Ville implements Iterable<Station>{
     Set<Abonne> listeAbo;
     JRegistre reg;
 
-    Ville(){
+    public Ville(){
         this.listeAbo = new HashSet<>();
         exploitant = new Exploitant();
         stationSet = new HashSet<Station>();
         this.reg = new JRegistre();
     }
-    void initialiser(File f) throws IOException {
+    public void initialiser(File f) throws IOException {
         ASTNode n = null;
         try{
              n = parser.parse(f);
@@ -48,7 +46,7 @@ public class Ville implements Iterable<Station>{
         Iterator<Station> iter = iterator();
         stationPrincipal = iter.next();
     }
-    void setStationPrincipale(String st){
+    public void setStationPrincipale(String st){
         for(Station s: stationSet) {
             if (s.getNom().equals(st)) {
                 stationPrincipal = s;
@@ -116,7 +114,7 @@ public class Ville implements Iterable<Station>{
 
 
             Iterator it = iterator();
-            for(Station s: this){
+            for(Station s: stationSet){  // stationSet ?? sur les test ça marche mieux que this
                 /* GET ABONNE */
                 for(Abonne a : this.listeAbo){
                     double  facturation = 0;

@@ -33,6 +33,7 @@ public class ClosestStationIterator implements Iterator<Station>{
 
     @Override
     public Station next() {
+
         if(this.buffer.size() != 0) {
             return this.buffer.pollFirst();
         }
@@ -40,8 +41,7 @@ public class ClosestStationIterator implements Iterator<Station>{
     }
 
     @Override
-    public void remove() {
-    }
+    public void remove() {}
 
     private Station getNext() {
         if(this.setStation == null) return null;
