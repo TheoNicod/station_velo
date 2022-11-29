@@ -173,4 +173,29 @@ public class VilleTest {
         Assert.assertEquals(2.2, facturation_mois.get(hugo), 0.00);
     }
 
+
+
+    @Test
+    public void facturationVideTest() throws IncorrectNameException{
+        Abonne theo = new Abonne("Theo", "12345-55555-11111111111-47");
+        Abonne romain = new Abonne("Romain", "12345-55555-22222222222-47");
+        Abonne hugo = new Abonne("Hugo", "12345-55555-33333333333-47");
+
+        IVelo ve [] = new IVelo [5];
+        FabriqueVelo fab = FabriqueVelo.getInstance();
+        for(int i = 0; i < 5; i++) {
+            ve[i] = fab.construire('h', "CADRE_ALUMINIUM");
+        }
+
+        IRegistre r = new JRegistre();
+
+        for(int i = 0; i < 5; i++) r.retourner(ve[i], System.currentTimeMillis() + 3600000);
+        // == emprunt velo cadre alu 1h (x2 pour Théo)
+
+        Map<Abonne, Double> facturation_mois;
+        facturation_mois = v.facturation(11, 2022);
+
+        Assert.assertEquals(0, facturation_mois.size());
+    }
+
 }

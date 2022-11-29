@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Year;
+/*import java.time.Year;*/
 import java.util.*;
 
 public class Ville implements Iterable<Station>{
@@ -92,6 +92,12 @@ public class Ville implements Iterable<Station>{
 
 
     public Map<Abonne, Double> facturation(int mois, int annee){
+        if(mois == 0 || mois > 12){
+            return null;
+        }
+        if(annee < 1970 || annee > Calendar.getInstance().get(Calendar.YEAR)){
+            return null;
+        }
         int moisE = mois+1;
         int anneeE = annee;
         if(mois == 12){
@@ -127,6 +133,9 @@ public class Ville implements Iterable<Station>{
             }
         }catch (ParseException e){
             e.printStackTrace();
+        }
+        for (Map.Entry<Abonne, Double> entry : facture.entrySet()) {
+            System.out.println(entry.getKey() + ":" + entry.getValue().toString());
         }
         return facture;
     }
