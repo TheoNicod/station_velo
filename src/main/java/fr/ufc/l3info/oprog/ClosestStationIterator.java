@@ -1,39 +1,63 @@
 package fr.ufc.l3info.oprog;
 
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+
+
+import java.util.*;
 
 public class ClosestStationIterator implements Iterator<Station>{
-    Set<Station> setStation;
-    Station depart;
-    Station courrante;
+    private Set<Station> setStation;
+    private Station depart, courrante;
+    private Deque<Station> buffer;
+
+
 
     public ClosestStationIterator(Set<Station> set, Station s) {
-        setStation = new HashSet<>();
-        if(s == null) {
-            int i = 0;
+        if(set != null) this.setStation = new HashSet<>(set);
+        this.buffer = new ArrayDeque<>();
+        if(s == null && set != null) {
             for(Station st : set) {
-                if(i == 0) depart = st; //bizarre mais c'est pour s'assurer que s != null
-                i++;
+                this.courrante = this.depart = st;
+                break;
             }
-        }
-        courrante = depart = s;
+        }else
+            this.courrante = this.depart = s;
     }
     @Override
     public boolean hasNext() {
-        if(setStation == null) return false;
-        return false;
+        Station s = this.getNext();
+        if(s == null) return false;
+        else this.buffer.add(s);
+        return true;
     }
 
     @Override
     public Station next() {
-        return null;
+
+        if(this.buffer.size() != 0) {
+            return this.buffer.pollFirst();
+        }
+        return this.getNext();
     }
 
     @Override
-    public void remove() {
+    public void remove() {}
+
+    private Station getNext() {
+        if(this.setStation == null) return null;
+        Station closest_station = null;
+        double dist_curr = 0.00;
+        double closest_dist = 100000000000.00;
+        for(Station s : this.setStation) {
+            dist_curr = this.courrante.distance(s);
+            if(dist_curr < closest_dist) {
+                closest_dist = dist_curr;
+                closest_station = s;
+            }
+        }
+        if(closest_station != null)  this.setStation.remove(closest_station);
+        this.courrante = closest_station;
+        return closest_station;
     }
 
 
