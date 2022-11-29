@@ -19,13 +19,14 @@ public class Ville implements Iterable<Station>{
     Set<Abonne> listeAbo;
     JRegistre reg;
 
-    Ville(){
+    public Ville(){
         this.listeAbo = new HashSet<>();
         exploitant = new Exploitant();
         stationSet = new HashSet<Station>();
         this.reg = new JRegistre();
     }
-    void initialiser(File f) throws IOException {
+    public void initialiser(File f) throws IOException {
+        stationSet.clear();
         ASTNode n = null;
         try{
              n = parser.parse(f);
@@ -45,7 +46,7 @@ public class Ville implements Iterable<Station>{
         Iterator<Station> iter = iterator();
         stationPrincipal = iter.next();
     }
-    void setStationPrincipale(String st){
+    public void setStationPrincipale(String st){
         for(Station s: stationSet) {
             if (s.getNom().equals(st)) {
                 stationPrincipal = s;
@@ -90,6 +91,12 @@ public class Ville implements Iterable<Station>{
 
 
     public Map<Abonne, Double> facturation(int mois, int annee){
+        if(mois == 0 || mois > 12){
+            return null;
+        }
+        if(annee < 1970 || annee > Calendar.getInstance().get(Calendar.YEAR)){
+            return null;
+        }
         int moisE = mois+1;
         int anneeE = annee;
         if(mois == 12){
@@ -113,7 +120,7 @@ public class Ville implements Iterable<Station>{
 
 
             Iterator it = iterator();
-            for(Station s: this){
+            for(Station s: stationSet){  // stationSet ?? sur les test ça marche mieux que this
                 /* GET ABONNE */
                 for(Abonne a : this.listeAbo){
                     double  facturation = 0;
@@ -125,6 +132,9 @@ public class Ville implements Iterable<Station>{
             }
         }catch (ParseException e){
             e.printStackTrace();
+        }
+        for (Map.Entry<Abonne, Double> entry : facture.entrySet()) {
+            System.out.println(entry.getKey() + ":" + entry.getValue().toString());
         }
         return facture;
     }
