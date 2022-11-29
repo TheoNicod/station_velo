@@ -27,6 +27,7 @@ public class Ville implements Iterable<Station>{
         this.reg = new JRegistre();
     }
     public void initialiser(File f) throws IOException {
+        stationSet.clear();
         ASTNode n = null;
         try{
              n = parser.parse(f);

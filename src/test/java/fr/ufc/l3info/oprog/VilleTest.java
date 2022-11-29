@@ -1,7 +1,7 @@
 package fr.ufc.l3info.oprog;
 
 
-//import org.graalvm.compiler.hotspot.replacements.AssertionSnippets;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,8 +15,9 @@ public class VilleTest {
     private Ville v;
 
     @Before
-    public void beforeVille() {
+    public void beforeVille()throws IOException {
         this.v = new Ville();
+        v.initialiser(new File("./target/classes/data/stationsOK.txt"));
     }
 
     /* Constructeur Ville() */
@@ -32,9 +33,10 @@ public class VilleTest {
         v.initialiser(new File("./target/classes/data/sta.txt"));
     }
 
-    @Test (expected = IOException.class)
+    @Test
     public void initialiserTestErreurFichier() throws IOException{
         v.initialiser(new File("./target/classes/data/stationsMultipleErreur.txt"));
+        Assert.assertNull(v.getStation("21 - Avenue Fontaine Argent, Boulevard Diderot"));
     }
 
     // manque les test pour "On notera que chaque appel à cette méthode aura pour effet de réinitialiser l'ensemble des stations existantes. "
@@ -45,6 +47,12 @@ public class VilleTest {
         v.setStationPrincipale("Avenue du Maréchal Foch");
         ClosestStationIterator it = (ClosestStationIterator) v.iterator();
         Assert.assertEquals("Avenue du Maréchal Foch", it.next().getNom());
+    }
+    @Test
+    public void TestSetStationPrincipaleInexistante() {
+        v.setStationPrincipale("");
+        ClosestStationIterator it = (ClosestStationIterator) v.iterator();
+        Assert.assertEquals("21 - Avenue Fontaine Argent, Boulevard Diderot", it.next().getNom());
     }
 
     /* Station getStation(String nom) */
@@ -82,7 +90,7 @@ public class VilleTest {
     public void getStationPlusProcheTestDeuxiemeStation() throws IOException{
         v.initialiser(new File("./target/classes/data/stationsOK.txt"));
         Station s = v.getStationPlusProche(47.24651, 6.02267);
-        //Assert.assertNotNull(s);
+        Assert.assertNotNull(s);
         Assert.assertEquals("Avenue du Maréchal Foch", s.getNom());
     }
 
@@ -163,6 +171,31 @@ public class VilleTest {
         Assert.assertEquals(4.4, facturation_mois.get(theo), 0.00);
         Assert.assertEquals(2.2, facturation_mois.get(romain), 0.00);
         Assert.assertEquals(2.2, facturation_mois.get(hugo), 0.00);
+    }
+
+
+
+    @Test
+    public void facturationVideTest() throws IncorrectNameException{
+        Abonne theo = new Abonne("Theo", "12345-55555-11111111111-47");
+        Abonne romain = new Abonne("Romain", "12345-55555-22222222222-47");
+        Abonne hugo = new Abonne("Hugo", "12345-55555-33333333333-47");
+
+        IVelo ve [] = new IVelo [5];
+        FabriqueVelo fab = FabriqueVelo.getInstance();
+        for(int i = 0; i < 5; i++) {
+            ve[i] = fab.construire('h', "CADRE_ALUMINIUM");
+        }
+
+        IRegistre r = new JRegistre();
+
+        for(int i = 0; i < 5; i++) r.retourner(ve[i], System.currentTimeMillis() + 3600000);
+        // == emprunt velo cadre alu 1h (x2 pour Théo)
+
+        Map<Abonne, Double> facturation_mois;
+        facturation_mois = v.facturation(11, 2022);
+
+        Assert.assertEquals(0, facturation_mois.size());
     }
 
 }

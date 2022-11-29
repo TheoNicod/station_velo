@@ -6,7 +6,7 @@ public abstract class Option implements IVelo {
     private String nom;
 
 
-    public Option (IVelo v, double tariff, String nom) {
+    protected Option (IVelo v, double tariff, String nom) {
         this.v = v;
         if(tariff >= 0)
             this.tarifOption = tariff;

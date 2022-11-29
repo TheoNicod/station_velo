@@ -6,14 +6,14 @@ public class Velo implements IVelo {
     private boolean accroche, abime;
 
 
-    public Velo (char t) {
+    protected Velo (char t) {
         this.type_cadre = t;
         this.kilometrage = 0;
         this.revision = 500;
         this.accroche = false;
         this.abime = false;
     }
-    public Velo () {
+    protected Velo () {
         this.type_cadre = 'm';
         this.kilometrage = 0;
         this.revision = 500;
