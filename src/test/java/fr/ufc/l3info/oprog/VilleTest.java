@@ -144,28 +144,29 @@ public class VilleTest {
 
     @Test
     public void facturationTest() throws IncorrectNameException{
-        Abonne theo = new Abonne("Theo", "12345-55555-11111111111-47");
-        Abonne romain = new Abonne("Romain", "12345-55555-22222222222-47");
-        Abonne hugo = new Abonne("Hugo", "12345-55555-33333333333-47");
-
         IVelo ve [] = new IVelo [5];
         FabriqueVelo fab = FabriqueVelo.getInstance();
-        for(int i = 0; i < 5; i++) {
+        for(int i = 0; i < 3; i++) {
             ve[i] = fab.construire('h', "CADRE_ALUMINIUM");
         }
 
         IRegistre r = new JRegistre();
+        Abonne theo = v.creerAbonne("theo","12345-55555-11111111111-47");
+        Abonne romain = v.creerAbonne("romain","26251-55151-15151121616-33");
+        Abonne hugo = v.creerAbonne("hugo","25452-24525-35435435478-16");
         r.emprunter(theo, ve[0], System.currentTimeMillis());
         r.emprunter(romain, ve[1], System.currentTimeMillis());
         r.emprunter(hugo, ve[2], System.currentTimeMillis());
-        r.emprunter(theo, ve[3], System.currentTimeMillis());
-        r.emprunter(romain, ve[4], System.currentTimeMillis());
 
-        for(int i = 0; i < 5; i++) r.retourner(ve[i], System.currentTimeMillis() + 3600000);
+        for(int i = 0; i < 5; i++){
+            r.retourner(ve[i], System.currentTimeMillis() + 3600000);
+        }
         // == emprunt velo cadre alu 1h (x2 pour Théo)
-
         Map<Abonne, Double> facturation_mois;
         facturation_mois = v.facturation(11, 2022);
+        for (Map.Entry<Abonne, Double> entry : facturation_mois.entrySet()) {
+            System.out.println(entry.getKey().getNom() + " : " + entry.getValue().toString());
+        }
 
         Assert.assertEquals(3, facturation_mois.size());
         Assert.assertEquals(4.4, facturation_mois.get(theo), 0.00);
