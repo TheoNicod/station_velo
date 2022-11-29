@@ -1,7 +1,7 @@
 package fr.ufc.l3info.oprog;
 
 
-//import org.graalvm.compiler.hotspot.replacements.AssertionSnippets;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,8 +15,9 @@ public class VilleTest {
     private Ville v;
 
     @Before
-    public void beforeVille() {
+    public void beforeVille()throws IOException {
         this.v = new Ville();
+        v.initialiser(new File("./target/classes/data/stationsOK.txt"));
     }
 
     /* Constructeur Ville() */
@@ -32,9 +33,10 @@ public class VilleTest {
         v.initialiser(new File("./target/classes/data/sta.txt"));
     }
 
-    @Test (expected = IOException.class)
+    @Test
     public void initialiserTestErreurFichier() throws IOException{
         v.initialiser(new File("./target/classes/data/stationsMultipleErreur.txt"));
+        Assert.assertNull(v.getStation("21 - Avenue Fontaine Argent, Boulevard Diderot"));
     }
 
     // manque les test pour "On notera que chaque appel à cette méthode aura pour effet de réinitialiser l'ensemble des stations existantes. "
@@ -45,6 +47,12 @@ public class VilleTest {
         v.setStationPrincipale("Avenue du Maréchal Foch");
         ClosestStationIterator it = (ClosestStationIterator) v.iterator();
         Assert.assertEquals("Avenue du Maréchal Foch", it.next().getNom());
+    }
+    @Test
+    public void TestSetStationPrincipaleInexistante() {
+        v.setStationPrincipale("");
+        ClosestStationIterator it = (ClosestStationIterator) v.iterator();
+        Assert.assertEquals("21 - Avenue Fontaine Argent, Boulevard Diderot", it.next().getNom());
     }
 
     /* Station getStation(String nom) */
@@ -82,7 +90,7 @@ public class VilleTest {
     public void getStationPlusProcheTestDeuxiemeStation() throws IOException{
         v.initialiser(new File("./target/classes/data/stationsOK.txt"));
         Station s = v.getStationPlusProche(47.24651, 6.02267);
-        //Assert.assertNotNull(s);
+        Assert.assertNotNull(s);
         Assert.assertEquals("Avenue du Maréchal Foch", s.getNom());
     }
 
