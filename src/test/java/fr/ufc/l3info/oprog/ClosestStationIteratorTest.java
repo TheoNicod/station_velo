@@ -134,7 +134,7 @@ public class ClosestStationIteratorTest {
         ClosestStationIterator clsStItr = new ClosestStationIterator(stationSet,station1);
 
         clsStItr.next();
-        Assert.assertEquals(station3, clsStItr.next());
+        Assert.assertEquals(station2, clsStItr.next());
         stationSet.clear();
 
     }
@@ -175,7 +175,7 @@ public class ClosestStationIteratorTest {
         stationSet.add(station2);
         ClosestStationIterator clsStItr = new ClosestStationIterator(stationSet,station1);
         Assert.assertEquals(station1, clsStItr.next());
-        Assert.assertEquals(station3, clsStItr.next()); // !!!!!!!!!
+        Assert.assertEquals(station3, clsStItr.next());
         Assert.assertEquals(station2, clsStItr.next());
     }
 
