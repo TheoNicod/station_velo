@@ -104,7 +104,7 @@ public class TestsFonctionnels_RC {
     @Test
     public void testRemplissageStation3(){}
 
-    @Test
+    /*@Test
     public void testEmprunt1(){
         ville.setStationPrincipale("Avenue du Maréchal Foch");
 
@@ -136,7 +136,7 @@ public class TestsFonctionnels_RC {
         v1.arrimer();
         st2.emprunterVelo(a, 1);
         Assert.assertEquals(3, st2.nbBornesLibres());
-    }
+    }*/
 
     @Test
     public void testEmpruntAbimer(){
@@ -148,9 +148,8 @@ public class TestsFonctionnels_RC {
         IVelo v1 = fabrique.construire('m',"CADRE_ALUMINIUM", "SUSPENSION_ARRIERE");
         exp.acquerirVelo(v1);
 
-        /**
-         * Pas obligé d'utilisé le ravitaillement ici
-         */
+
+         //Pas obligé d'utilisé le ravitaillement ici
         exp.ravitailler(ville);
 
         Station st1 = ville.getStation("21 - Avenue Fontaine Argent, Boulevard Diderot");
@@ -183,7 +182,7 @@ public class TestsFonctionnels_RC {
 
     }
 
-    @Test
+    /*@Test
     public void testEntretien1(){
         Exploitant exp = new Exploitant();
         FabriqueVelo fabrique = FabriqueVelo.getInstance();
@@ -233,9 +232,9 @@ public class TestsFonctionnels_RC {
         Assert.assertFalse(st1.veloALaBorne(1).estAbime());
         Assert.assertEquals(500,st1.veloALaBorne(2).prochaineRevision(),0);
         Assert.assertTrue(st2.veloALaBorne(2).estAbime());
-    }
+    }*/
 
-    @Test
+    /*@Test
     public void testEntretien2(){
         Exploitant exp = new Exploitant();
         FabriqueVelo fabrique = FabriqueVelo.getInstance();
@@ -288,7 +287,7 @@ public class TestsFonctionnels_RC {
         Assert.assertFalse(st1.veloALaBorne(1).estAbime());
         Assert.assertEquals(500,st1.veloALaBorne(2).prochaineRevision(),0);
         Assert.assertFalse(st2.veloALaBorne(2).estAbime());
-    }
+    }*/
 
     @Test
     public void testEntretien3(){}

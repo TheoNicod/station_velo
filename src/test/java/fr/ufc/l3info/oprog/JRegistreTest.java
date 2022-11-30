@@ -143,7 +143,7 @@ public class JRegistreTest {
         long debut = System.currentTimeMillis();
         r.emprunter(a, v1, debut);
 
-        long fin = System.currentTimeMillis() + 60*60000 + 35000;
+        long fin = System.currentTimeMillis() + 3600000;
         r.retourner(v1, fin);
 
         long t = (fin - debut) / 1000 / 60;
@@ -176,8 +176,4 @@ public class JRegistreTest {
 
         Assert.assertEquals(0, r.facturation(a, 0, 0), 0.0);
     }
-
-
-
-
 }

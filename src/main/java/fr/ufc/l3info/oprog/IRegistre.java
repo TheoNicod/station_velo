@@ -1,6 +1,8 @@
 package fr.ufc.l3info.oprog;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Interface décrivant les registres. Ceux-ci enregistrent les emprunts de vélos,

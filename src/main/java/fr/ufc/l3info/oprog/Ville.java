@@ -39,8 +39,8 @@ public class Ville implements Iterable<Station>{
         n.accept(builder);
         if(visitor.getErrors().size() == 0 ){
             for(Station s : builder.getStations()){
-                stationSet.add(s);
                 s.setRegistre(this.reg);
+                stationSet.add(s);
             }
         }
         Iterator<Station> iter = iterator();
@@ -108,33 +108,29 @@ public class Ville implements Iterable<Station>{
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String myDate = annee+"/"+mois+"/01 00:00:00";
         String myDateE = anneeE+"/"+moisE+"/01 00:00:00";
-        long dateB;
-        long dateE;
-
+        long dateB = 0;
+        long dateE = 0;
         try{
-            Date date = sdf.parse(myDate);
-            dateB = date.getTime();
+            Date date1 = sdf.parse(myDate);
+            dateB = date1.getTime();
 
-            date = sdf.parse(myDateE);
+            Date date = sdf.parse(myDateE);
             dateE = date.getTime();
 
 
-            Iterator it = iterator();
-            for(Station s: stationSet){  // stationSet ?? sur les test ça marche mieux que this
+            for(Station s: this.stationSet){  // stationSet ?? sur les test ça marche mieux que this
                 /* GET ABONNE */
                 for(Abonne a : this.listeAbo){
                     double  facturation = 0;
-                    facturation += this.reg.facturation(a,dateB,dateE);
+                    facturation = this.reg.facturation(a,dateB,dateE);
                     if(!facture.containsKey(a)){
                         facture.put(a,facturation);
                     }
                 }
             }
-        }catch (ParseException e){
+            return facture;
+        }catch (ParseException e) {
             e.printStackTrace();
-        }
-        for (Map.Entry<Abonne, Double> entry : facture.entrySet()) {
-            System.out.println(entry.getKey() + ":" + entry.getValue().toString());
         }
         return facture;
     }
