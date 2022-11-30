@@ -3,12 +3,11 @@ package fr.ufc.l3info.oprog;
 
 import fr.ufc.l3info.oprog.parser.*;
 
-import javax.swing.text.html.parser.Parser;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-/*import java.time.Year;*/
+
 import java.util.*;
 
 public class Ville implements Iterable<Station>{
@@ -64,10 +63,11 @@ public class Ville implements Iterable<Station>{
     }
     public Station getStationPlusProche(double lat, double lon){
         Station temp = new Station("temp",lat,lon,0);
-        double shortestDistance = stationPrincipal.distance(temp);
-        Station closest = null;
+        System.out.println("Station principale : "+this.stationPrincipal.getNom());
+        double shortestDistance = temp.distance(this.stationPrincipal);
+        Station closest = this.stationPrincipal;
         for(Station s: stationSet){
-            double currentDistance = s.distance(temp);
+            double currentDistance = temp.distance(s);
             if(currentDistance < shortestDistance){
                 shortestDistance = currentDistance;
                 closest = s;
