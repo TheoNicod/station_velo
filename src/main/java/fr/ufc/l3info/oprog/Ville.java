@@ -63,10 +63,11 @@ public class Ville implements Iterable<Station>{
     }
     public Station getStationPlusProche(double lat, double lon){
         Station temp = new Station("temp",lat,lon,0);
-        double shortestDistance = stationPrincipal.distance(temp);
-        Station closest = null;
+        System.out.println("Station principale : "+this.stationPrincipal.getNom());
+        double shortestDistance = temp.distance(this.stationPrincipal);
+        Station closest = this.stationPrincipal;
         for(Station s: stationSet){
-            double currentDistance = s.distance(temp);
+            double currentDistance = temp.distance(s);
             if(currentDistance < shortestDistance){
                 shortestDistance = currentDistance;
                 closest = s;

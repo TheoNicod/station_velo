@@ -5,7 +5,6 @@ package fr.ufc.l3info.oprog;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.io.File;
@@ -19,7 +18,6 @@ public class VilleTest {
     @Before
     public void beforeVille()throws IOException {
         this.v = new Ville();
-        v.initialiser(new File("./target/classes/data/stationsOK.txt"));
     }
 
     /* Constructeur Ville() */
@@ -45,15 +43,18 @@ public class VilleTest {
 
     /* void setStationPrincipale(String st) */
     @Test
-    public void setStationPrincipaleTest() {
+    public void setStationPrincipaleTest() throws IOException {
+        v.initialiser(new File("./target/classes/data/stationsOK.txt"));
         v.setStationPrincipale("Avenue du Maréchal Foch");
         ClosestStationIterator it = (ClosestStationIterator) v.iterator();
         Assert.assertEquals("Avenue du Maréchal Foch", it.next().getNom());
     }
     @Test
-    public void TestSetStationPrincipaleInexistante() {
-        v.setStationPrincipale("");
-        ClosestStationIterator it = (ClosestStationIterator) v.iterator();
+    public void TestSetStationPrincipaleInexistante() throws IOException {
+        Ville v4 = new Ville();
+        v4.initialiser(new File("./target/classes/data/stationsOK.txt"));
+        v4.setStationPrincipale("");
+        ClosestStationIterator it = (ClosestStationIterator) v4.iterator();
         Assert.assertEquals("21 - Avenue Fontaine Argent, Boulevard Diderot", it.next().getNom());
     }
 
@@ -74,7 +75,7 @@ public class VilleTest {
     }
     @Test
     public void getStationTestStationInexistante() throws IOException{
-        v.initialiser(new File("./target/classes/data/stationsOK.txt"));
+        //v.initialiser(new File("./target/classes/data/stationsOK.txt"));
         Station s = v.getStation("Avenue");
         Assert.assertNull(s);
     }
@@ -84,7 +85,7 @@ public class VilleTest {
     public void getStationPlusProcheTestPremiereStation() throws IOException {
         v.initialiser(new File("./target/classes/data/stationsOK.txt"));
         Station s = v.getStationPlusProche(47.247761, 5.983599);
-        Assert.assertNotEquals(null, s);
+        Assert.assertNotNull(s);
         Assert.assertEquals("21 - Avenue Fontaine Argent, Boulevard Diderot", s.getNom());
     }
 
@@ -116,17 +117,19 @@ public class VilleTest {
 
     /* Iterator<Station> iterator() */
     @Test
-    public void iteratorTestStationPrincipale() throws IOException{ //bizarre
-        v.initialiser(new File("./target/classes/data/stationsOK.txt"));
-        ClosestStationIterator it = (ClosestStationIterator) v.iterator();
-        v.setStationPrincipale("Avenue du Maréchal Foch");
+    public void iteratorTestStationPrincipale() throws IOException{
+        Ville v3 = new Ville();
+        v3.initialiser(new File("./target/classes/data/stationsOK.txt"));
+        v3.setStationPrincipale("Avenue du Maréchal Foch");
+        ClosestStationIterator it = (ClosestStationIterator) v3.iterator();
         Assert.assertEquals("Avenue du Maréchal Foch", it.next().getNom());
     }
 
     @Test
-    public void iteratorTestNombre() throws IOException{ //bizarre
-        v.initialiser(new File("./target/classes/data/stationsOK.txt"));
-        ClosestStationIterator it = (ClosestStationIterator) v.iterator();
+    public void iteratorTestNombre() throws IOException{
+        Ville v2 = new Ville();
+        v2.initialiser(new File("./target/classes/data/stationsOK.txt"));
+        ClosestStationIterator it = (ClosestStationIterator) v2.iterator();
         int i = 0;
         while(it.hasNext()) {
             it.next();
@@ -145,7 +148,8 @@ public class VilleTest {
     }
 
     @Test
-    public void facturationTest() throws IncorrectNameException{
+    public void facturationTest() throws IncorrectNameException, IOException {
+        v.initialiser(new File("./target/classes/data/stationsOK.txt"));
         IVelo ve [] = new IVelo [5];
         FabriqueVelo fab = FabriqueVelo.getInstance();
         Station s = Mockito.spy(v.getStation("Avenue du Maréchal Foch"));
@@ -189,10 +193,6 @@ public class VilleTest {
 
     @Test
     public void facturationVideTest() throws IncorrectNameException{
-        Abonne theo = new Abonne("Theo", "12345-55555-11111111111-47");
-        Abonne romain = new Abonne("Romain", "12345-55555-22222222222-47");
-        Abonne hugo = new Abonne("Hugo", "12345-55555-33333333333-47");
-
         IVelo ve [] = new IVelo [5];
         FabriqueVelo fab = FabriqueVelo.getInstance();
         for(int i = 0; i < 5; i++) {
@@ -202,7 +202,7 @@ public class VilleTest {
         IRegistre r = new JRegistre();
 
         for(int i = 0; i < 5; i++) r.retourner(ve[i], System.currentTimeMillis() + 3600000);
-        // == emprunt velo cadre alu 1h (x2 pour Théo)
+
 
         Map<Abonne, Double> facturation_mois;
         facturation_mois = v.facturation(11, 2022);
