@@ -40,8 +40,8 @@ public class Ville implements Iterable<Station>{
         n.accept(builder);
         if(visitor.getErrors().size() == 0 ){
             for(Station s : builder.getStations()){
-                stationSet.add(s);
                 s.setRegistre(this.reg);
+                stationSet.add(s);
             }
         }
         Iterator<Station> iter = iterator();
@@ -117,6 +117,7 @@ public class Ville implements Iterable<Station>{
 
             Date date = sdf.parse(myDateE);
             dateE = date.getTime();
+
 
             for(Station s: this.stationSet){  // stationSet ?? sur les test ça marche mieux que this
                 /* GET ABONNE */
