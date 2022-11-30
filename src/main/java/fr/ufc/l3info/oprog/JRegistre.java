@@ -19,7 +19,6 @@ public class JRegistre implements IRegistre{
         empruntsParVelo = new HashMap<>();
         empruntsEnCours = new HashMap<>();
     }
-
     @Override
     public int emprunter(Abonne a, IVelo v, long d) {
         if (a == null || v == null) {
